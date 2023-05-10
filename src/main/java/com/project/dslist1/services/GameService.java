@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.dslist1.dto.GameDTO;
+import com.project.dslist1.dto.GameMaxDTO;
 import com.project.dslist1.entities.Game;
 import com.project.dslist1.repositories.GameRepository;
 
@@ -22,9 +23,11 @@ public class GameService {
 		return dto;
 	}
 	
-	public GameDTO findById(Long id) {
+	public GameMaxDTO findById(Long id) {
 		Optional<Game> obj = repo.findById(id);
-		GameDTO objdto = obj.map(x-> new GameDTO(x)).get();
+		GameMaxDTO objdto = obj.map(x-> new GameMaxDTO(x)).get();
 		return objdto;
+		//Game result = repo.findById(id).get();
+		//return new GameMaxDTO(result);
 	}
 }

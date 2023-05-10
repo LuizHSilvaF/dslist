@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dslist1.dto.GameDTO;
+import com.project.dslist1.dto.GameMaxDTO;
 import com.project.dslist1.services.GameService;
 
 @RestController
@@ -26,8 +27,8 @@ public class GameController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<GameDTO> findById(@PathVariable Long id){
-		GameDTO obj = service.findById(id);
+	public ResponseEntity<GameMaxDTO> findById(@PathVariable Long id){
+		GameMaxDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
