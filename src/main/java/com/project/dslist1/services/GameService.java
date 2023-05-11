@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.project.dslist1.dto.GameDTO;
 import com.project.dslist1.dto.GameMaxDTO;
 import com.project.dslist1.entities.Game;
+import com.project.dslist1.projections.GameMinProjection;
 import com.project.dslist1.repositories.GameRepository;
 
 @Service
@@ -30,4 +31,10 @@ public class GameService {
 		//Game result = repo.findById(id).get();
 		//return new GameMaxDTO(result);
 	}
+	
+	public List<GameDTO> findByGameList(Long listId) {
+		List<GameMinProjection> games = repo.searchByList(listId);
+		return games.stream().map(GameDTO::new).toList();
+	}
 }
+

@@ -3,33 +3,35 @@ package com.project.dslist1.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dslist1.dto.GameDTO;
-import com.project.dslist1.dto.GameMaxDTO;
+import com.project.dslist1.dto.GameListDTO;
+import com.project.dslist1.services.GameListService;
 import com.project.dslist1.services.GameService;
 
 @RestController
-@RequestMapping(value = "/games")
+@RequestMapping(value = "/lists")
 public class GameListController {
 
 	@Autowired
-	private GameService service;
+	private GameListService gameListService;
+
+	@Autowired
+	private GameService gameService;
 
 	@GetMapping
-	public ResponseEntity<List<GameDTO>> findAll(){
-		List<GameDTO> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+	public List<GameListDTO> findAll() {
+		List<GameListDTO> result = gameListService.findAll();
+		return result;
 	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<GameMaxDTO> findById(@PathVariable Long id){
-		GameMaxDTO obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+
+	@GetMapping(value = "/{listId}/games")
+	public List<GameDTO> findGames(@PathVariable Long listId) {
+		List<GameDTO> result = gameService.findByGameList(listId);
+		return result;
 	}
-	
 }
